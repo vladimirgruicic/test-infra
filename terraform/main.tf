@@ -41,7 +41,7 @@ resource "aws_internet_gateway" "my_igw" {
 }
 
 # Attach the internet gateway to the VPC
-resource "aws_vpc_attachment" "my_vpc_attachment" {
-  vpc_id          = aws_vpc.my_vpc.id
-  internet_gateway_id = aws_internet_gateway.my_igw.id
+resource "aws_internet_gateway_attachment" "example" {
+  internet_gateway_id = aws_internet_gateway.example.id
+  vpc_id              = aws_vpc.example.id
 }
