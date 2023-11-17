@@ -40,10 +40,6 @@ resource "aws_internet_gateway" "my_igw" {
   vpc_id = aws_vpc.my_vpc.id
 }
 
-# ECS Cluster
-resource "aws_ecs_cluster" "my_cluster" {
-  name = "MyEcsCluster"
-}
 
 # # Attach the internet gateway to the VPC
 # resource "aws_internet_gateway_attachment" "my_vpc_attachment" {
@@ -51,78 +47,84 @@ resource "aws_ecs_cluster" "my_cluster" {
 #   internet_gateway_id = aws_internet_gateway.my_igw.id
 # }
 
-# Task Definitions
-# resource "aws_ecs_task_definition" "frontend_task" {
-#   family                   = "frontend"
-#   network_mode             = "awsvpc"
-#   requires_compatibilities = ["FARGATE"]
-#   cpu                      = "256"
-#   memory                   = "512"
-#   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
-#   container_definitions = <<EOF
-# [
-#   {
-#     "name": "frontend-container",
-#     "image": "your_frontend_docker_image:latest",
-#     "cpu": 256,
-#     "memory": 512,
-#     "essential": true,
-#     "portMappings": [
-#       {
-#         "containerPort": 80,
-#         "hostPort": 80
-#       }
-#     ]
-#   }
-# ]
-# EOF
-# }
+# ECS Cluster
+resource "aws_ecs_cluster" "my_cluster" {
+  name = "MyEcsCluster"
+}
 
-# resource "aws_ecs_task_definition" "backend_task" {
-#   family                   = "backend"
-#   network_mode             = "awsvpc"
-#   requires_compatibilities = ["FARGATE"]
-#   cpu                      = "256"
-#   memory                   = "512"
-#   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
-#   container_definitions = <<EOF
-# [
-#   {
-#     "name": "backend-container",
-#     "image": "your_backend_docker_image:latest",
-#     "cpu": 256,
-#     "memory": 512,
-#     "essential": true,
-#     "portMappings": [
-#       {
-#         "containerPort": 8080,
-#         "hostPort": 8080
-#       }
-#     ]
-#   }
-# ]
-# EOF
-# }
 
-# # IAM Role for ECS Execution
-# resource "aws_iam_role" "ecs_execution_role" {
-#   name = "ecs_execution_role"
+#Task Definitions
+resource "aws_ecs_task_definition" "frontend_task" {
+  family                   = "frontend"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = aws_iam_role.ecs_execution_role.arn
+  container_definitions = <<EOF
+[
+  {
+    "name": "frontend-container",
+    "image": "your_frontend_docker_image:latest",
+    "cpu": 256,
+    "memory": 512,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 80
+      }
+    ]
+  }
+]
+EOF
+}
 
-#   assume_role_policy = <<EOF
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Action": "sts:AssumeRole",
-#       "Effect": "Allow",
-#       "Principal": {
-#         "Service": "ecs-tasks.amazonaws.com"
-#       }
-#     }
-#   ]
-# }
-# EOF
-# }
+resource "aws_ecs_task_definition" "backend_task" {
+  family                   = "backend"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = aws_iam_role.ecs_execution_role.arn
+  container_definitions = <<EOF
+[
+  {
+    "name": "backend-container",
+    "image": "your_backend_docker_image:latest",
+    "cpu": 256,
+    "memory": 512,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 8080,
+        "hostPort": 8080
+      }
+    ]
+  }
+]
+EOF
+}
+
+# IAM Role for ECS Execution
+resource "aws_iam_role" "ecs_execution_role" {
+  name = "ecs_execution_role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+      }
+    }
+  ]
+}
+EOF
+}
 
 # # ECS Service for frontend
 # resource "aws_ecs_service" "frontend_service" {
