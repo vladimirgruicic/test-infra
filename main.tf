@@ -246,7 +246,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 }
 
 # S3 Bucket for Frontend
-resource "aws_s3_bucket" "frontend_bucket" {
+resource "aws_s3_bucket" "test-vg-frontend_bucket" {
   bucket = "my-frontend-bucket"
   acl    = "private"  # Adjust based on your access requirements
 
