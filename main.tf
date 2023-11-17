@@ -179,6 +179,7 @@ resource "random_password" "db_password" {
 
 # RDS for Frontend Microservice
 resource "aws_db_instance" "frontenddb" {
+  allocated_storage = 10
   identifier = "my-postgres-db"
   engine = "postgres"
   engine_version = "13.4"
@@ -190,6 +191,7 @@ resource "aws_db_instance" "frontenddb" {
 
 # RDS for Backend Microservice
 resource "aws_db_instance" "backenddb" {
+  allocated_storage = 10
   identifier = "my-postgres-db"
   engine = "postgres"
   engine_version = "13.4"
