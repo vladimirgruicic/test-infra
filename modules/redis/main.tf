@@ -15,7 +15,6 @@ resource "aws_elasticache_cluster" "redis_cluster" {
   security_group_ids       = [aws_security_group.redis_security_group.id]
   parameter_group_name     = "default.redis6.x"
   port                     = 6379
-  automatic_failover_enabled = true
 }
 
 # Security Group for Redis
