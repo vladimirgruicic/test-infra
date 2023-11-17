@@ -1,12 +1,6 @@
-# main.tf
-
-provider "aws" {
-  region = "your_aws_region"
-}
-
 # S3 Bucket for Frontend
-resource "aws_s3_bucket" "frontend_bucket" {
-  bucket = "my-frontend-bucket"
+resource "aws_s3_bucket" "test-vg-frontend_bucket" {
+  bucket = "test-vg-frontend_bucket"
   acl    = "private"  # Adjust based on your access requirements
 
   versioning {
