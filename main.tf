@@ -14,26 +14,26 @@ resource "aws_vpc" "my_vpc" {
   }
 }
 
-# # Create public and private subnets
-# resource "aws_subnet" "public_subnet" {
-#   vpc_id                  = aws_vpc.my_vpc.id
-#   cidr_block              = "10.0.1.0/24"
-#   availability_zone       = "your_az"
-#   map_public_ip_on_launch = true
-#   tags = {
-#     Name = "PublicSubnet"
-#   }
-# }
+# Create public and private subnets
+resource "aws_subnet" "public_subnet" {
+  vpc_id                  = aws_vpc.my_vpc.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "eu-north-1"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "PublicSubnet"
+  }
+}
 
-# resource "aws_subnet" "private_subnet" {
-#   vpc_id                  = aws_vpc.my_vpc.id
-#   cidr_block              = "10.0.2.0/24"
-#   availability_zone       = "your_az"
-#   map_public_ip_on_launch = false
-#   tags = {
-#     Name = "PrivateSubnet"
-#   }
-# }
+resource "aws_subnet" "private_subnet" {
+  vpc_id                  = aws_vpc.my_vpc.id
+  cidr_block              = "10.0.2.0/24"
+  availability_zone       = "eu-north-1"
+  map_public_ip_on_launch = false
+  tags = {
+    Name = "PrivateSubnet"
+  }
+}
 
 # # Create an internet gateway
 # resource "aws_internet_gateway" "my_igw" {
