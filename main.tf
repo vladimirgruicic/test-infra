@@ -1,7 +1,7 @@
 # main.tf
 
 provider "aws" {
-  region = "your_aws_region"
+  region = "eu-north-1"
 }
 
 # Create a VPC
