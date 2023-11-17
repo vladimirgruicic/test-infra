@@ -40,6 +40,11 @@ resource "aws_internet_gateway" "my_igw" {
   vpc_id = aws_vpc.my_vpc.id
 }
 
+# ECS Cluster
+resource "aws_ecs_cluster" "my_cluster" {
+  name = "MyEcsCluster"
+}
+
 # # Attach the internet gateway to the VPC
 # resource "aws_internet_gateway_attachment" "my_vpc_attachment" {
 #   vpc_id          = aws_vpc.my_vpc.id
