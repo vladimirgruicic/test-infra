@@ -2,7 +2,7 @@
 resource "aws_appautoscaling_target" "ecs_target" {
   max_capacity       = 4
   min_capacity       = 1
-  resource_id        = "service/your-cluster/your-service"
+  resource_id        = aws_ecs_service.frontend_service.id  # Use the ECS service ID
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
