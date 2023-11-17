@@ -18,7 +18,7 @@ resource "aws_db_instance" "frontend_db" {
   parameter_group_name  = "default.postgres9.6"
   publicly_accessible   = false
   multi_az              = false
-  vpc_security_group_ids = [aws_security_group.db_security_group.id]
+  vpc_security_group_ids = [aws_security_group.db_frontend_security_group.id]
   subnet_group_name     = aws_db_subnet_group.db_subnet_group.name
 }
 
@@ -36,14 +36,33 @@ resource "aws_db_instance" "backend_db" {
   parameter_group_name  = "default.postgres9.6"
   publicly_accessible   = false
   multi_az              = false
-  vpc_security_group_ids = [aws_security_group.db_security_group.id]
+  vpc_security_group_ids = [aws_security_group.db_backend_security_group.id]
   subnet_group_name     = aws_db_subnet_group.db_subnet_group.name
 }
 
-# Security Group for RDS
-resource "aws_security_group" "db_security_group" {
-  name        = "db-security-group"
-  description = "Security group for RDS instances"
+# Security Group for RDS - Frontend
+resource "aws_security_group" "db_frontend_security_group" {
+  name        = "db-frontend-security-group"
+  description = "Security group for RDS - Frontend"
+  vpc_id      = aws_vpc.my_vpc.id
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# Security Group for RDS - Backend
+resource "aws_security_group" "db_backend_security_group" {
+  name        = "db-backend-security-group"
+  description = "Security group for RDS - Backend"
   vpc_id      = aws_vpc.my_vpc.id
   ingress {
     from_port   = 5432
