@@ -384,12 +384,13 @@ resource "aws_security_group" "alb_security_group" {
 
 # Auto Scaling Policy
 resource "aws_appautoscaling_target" "ecs_target" {
-  max_capacity       = 4
+  max_capacity       = 10
   min_capacity       = 1
-  resource_id        = aws_ecs_service.frontend_service.id  # Use the ECS service ID
+  resource_id        = "service/MyEcsCluster/frontend-service"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
+
 
 resource "aws_appautoscaling_policy" "ecs_policy" {
   name               = "scale-down"
