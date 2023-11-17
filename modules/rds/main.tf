@@ -4,40 +4,32 @@ provider "aws" {
   region = "your_aws_region"
 }
 
+# Generate a random password for the database
+resource "random_password" "db_password" {
+  length = 16
+  special = true
+}
+
 # RDS for Frontend Microservice
-resource "aws_db_instance" "frontend_db" {
-  identifier            = "frontend-db"
-  allocated_storage     = 20
-  storage_type          = "gp2"
-  engine                = "postgres"
-  engine_version        = "your_postgres_version"
-  instance_class        = "db.t2.micro"
-  name                  = "frontenddb"
-  username              = "your_db_username"
-  password              = "your_db_password"
-  parameter_group_name  = "default.postgres9.6"
-  publicly_accessible   = false
-  multi_az              = false
-  vpc_security_group_ids = [aws_security_group.db_frontend_security_group.id]
-  subnet_group_name     = aws_db_subnet_group.db_subnet_group.name
+resource "aws_db_instance" "frontenddb" {
+  identifier = "my-postgres-db"
+  engine = "postgres"
+  engine_version = "13.4"
+  instance_class = "db.t3.micro"
+  username = "postgres"
+  password = random_password.db_password.result
+  skip_final_snapshot = true
 }
 
 # RDS for Backend Microservice
-resource "aws_db_instance" "backend_db" {
-  identifier            = "backend-db"
-  allocated_storage     = 20
-  storage_type          = "gp2"
-  engine                = "postgres"
-  engine_version        = "your_postgres_version"
-  instance_class        = "db.t2.micro"
-  name                  = "backenddb"
-  username              = "your_db_username"
-  password              = "your_db_password"
-  parameter_group_name  = "default.postgres9.6"
-  publicly_accessible   = false
-  multi_az              = false
-  vpc_security_group_ids = [aws_security_group.db_backend_security_group.id]
-  subnet_group_name     = aws_db_subnet_group.db_subnet_group.name
+resource "aws_db_instance" "frontenddb" {
+  identifier = "my-postgres-db"
+  engine = "postgres"
+  engine_version = "13.4"
+  instance_class = "db.t3.micro"
+  username = "postgres"
+  password = random_password.db_password.result
+  skip_final_snapshot = true
 }
 
 # Security Group for RDS - Frontend
