@@ -182,7 +182,7 @@ resource "aws_db_instance" "frontenddb" {
   allocated_storage = 10
   identifier = "my-postgres-db"
   engine = "postgres"
-  engine_version = "13.4"
+  engine_version = "13.12"
   instance_class = "db.t3.micro"
   username = "postgres"
   password = random_password.db_password.result
@@ -194,7 +194,7 @@ resource "aws_db_instance" "backenddb" {
   allocated_storage = 10
   identifier = "my-postgres-db"
   engine = "postgres"
-  engine_version = "13.4"
+  engine_version = "13.12"
   instance_class = "db.t3.micro"
   username = "postgres"
   password = random_password.db_password.result
@@ -242,5 +242,5 @@ resource "aws_security_group" "db_backend_security_group" {
 # DB Subnet Group
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = "db-subnet-group"
-  subnet_ids = [aws_subnet.private_subnet.id]
+  subnet_ids  = [aws_subnet.public_subnet.id, aws_subnet.private_subnet.id]
 }
