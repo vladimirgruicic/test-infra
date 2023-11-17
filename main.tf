@@ -140,17 +140,17 @@ resource "aws_ecs_service" "frontend_service" {
 }
 
 # # ECS Service for backend
-# resource "aws_ecs_service" "backend_service" {
-#   name            = "backend-service"
-#   cluster         = aws_ecs_cluster.my_cluster.id
-#   task_definition = aws_ecs_task_definition.backend_task.arn
-#   launch_type     = "FARGATE"
-#   desired_count   = 2
-#   network_configuration {
-#     subnets = [aws_subnet.private_subnet.id]
-#     security_groups = [aws_security_group.ecs_security_group.id]
-#   }
-# }
+resource "aws_ecs_service" "backend_service" {
+  name            = "backend-service"
+  cluster         = aws_ecs_cluster.my_cluster.id
+  task_definition = aws_ecs_task_definition.backend_task.arn
+  launch_type     = "FARGATE"
+  desired_count   = 2
+  network_configuration {
+    subnets = [aws_subnet.private_subnet.id]
+    security_groups = [aws_security_group.ecs_security_group.id]
+  }
+}
 
 # # Security Group for ECS
 resource "aws_security_group" "ecs_security_group" {
