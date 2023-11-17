@@ -180,7 +180,7 @@ resource "random_password" "db_password" {
 # RDS for Frontend Microservice
 resource "aws_db_instance" "frontenddb" {
   allocated_storage = 10
-  identifier = "my-postgres-db"
+  identifier = "my-postgres-db-frontend"
   engine = "postgres"
   engine_version = "13.12"
   instance_class = "db.t3.micro"
