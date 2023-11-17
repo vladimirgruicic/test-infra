@@ -184,8 +184,8 @@ resource "aws_db_instance" "frontenddb" {
   engine = "postgres"
   engine_version = "13.12"
   instance_class = "db.t3.micro"
-  username = "postgres"
-  password = random_password.db_password.result
+  username = "foo"
+  password = "foobarfront"
   skip_final_snapshot = true
 }
 
@@ -196,8 +196,8 @@ resource "aws_db_instance" "backenddb" {
   engine = "postgres"
   engine_version = "13.12"
   instance_class = "db.t3.micro"
-  username = "postgres"
-  password = random_password.db_password.result
+  username = "foo"
+  password = "foobarback"
   skip_final_snapshot = true
 }
 
