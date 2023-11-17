@@ -239,6 +239,12 @@ resource "aws_security_group" "db_backend_security_group" {
   }
 }
 
+# DB Subnet Group
+resource "aws_db_subnet_group" "db_subnet_group" {
+  name       = "db-subnet-group"
+  subnet_ids  = [aws_subnet.public_subnet.id, aws_subnet.private_subnet.id]
+}
+
 # S3 Bucket for Frontend
 resource "aws_s3_bucket" "frontend_bucket" {
   bucket = "my-frontend-bucket"
