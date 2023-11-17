@@ -267,11 +267,6 @@ resource "aws_s3_bucket" "test_vg_frontend_bucket" {
     }
   }
 
-  logging {
-    target_bucket = "your-log-bucket"
-    target_prefix = "s3-logs/"
-  }
-
   lifecycle_rule {
     enabled = true
 
