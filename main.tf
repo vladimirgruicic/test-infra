@@ -289,12 +289,12 @@ resource "aws_s3_bucket" "test_vg_frontend_bucket" {
 resource "aws_elasticache_cluster" "redis_cluster" {
   cluster_id               = "my-redis-cluster"
   engine                   = "redis"
-  engine_version           = "6.x"
+  engine_version           = "3.2.4"
   node_type                = "cache.t2.micro"
   num_cache_nodes          = 1
   subnet_group_name        = aws_elasticache_subnet_group.redis_subnet_group.name
   security_group_ids       = [aws_security_group.redis_security_group.id]
-  parameter_group_name     = "default.redis6.x"
+  parameter_group_name     = "default.redis3.2"
   port                     = 6379
 }
 
