@@ -192,7 +192,7 @@ resource "aws_db_instance" "frontenddb" {
 # RDS for Backend Microservice
 resource "aws_db_instance" "backenddb" {
   allocated_storage = 10
-  identifier = "my-postgres-db"
+  identifier = "my-postgres-db-backend"
   engine = "postgres"
   engine_version = "13.12"
   instance_class = "db.t3.micro"
