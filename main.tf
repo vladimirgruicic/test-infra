@@ -65,7 +65,7 @@ resource "aws_ecs_task_definition" "frontend_task" {
 [
   {
     "name": "frontend-container",
-    "image": public.ecr.aws/poc-hello-world/hello-service:latest",
+    "image": "public.ecr.aws/poc-hello-world/hello-service:latest",
     "cpu": 256,
     "memory": 512,
     "essential": true,
