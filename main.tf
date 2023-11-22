@@ -187,6 +187,7 @@ resource "aws_db_instance" "frontenddb" {
   username = "foo"
   password = "foobarfront"
   skip_final_snapshot = true
+  db_subnet_group_name = aws_db_subnet_group.db_subnet_group.name
 }
 
 # RDS for Backend Microservice
@@ -199,6 +200,7 @@ resource "aws_db_instance" "backenddb" {
   username = "foo"
   password = "foobarback"
   skip_final_snapshot = true
+  db_subnet_group_name = aws_db_subnet_group.db_subnet_group.name
 }
 
 # Security Group for RDS - Frontend
