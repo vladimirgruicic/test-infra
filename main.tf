@@ -137,6 +137,11 @@ resource "aws_ecs_service" "frontend_service" {
     subnets = [aws_subnet.public_subnet.id]
     security_groups = [aws_security_group.ecs_security_group.id]
   }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.ecs_target_group.arn
+    container_name   = "frontend-container"  # Replace with your container name
+    container_port   = 80  # Replace with your container port
+  }
 }
 
 # # ECS Service for backend
@@ -149,6 +154,11 @@ resource "aws_ecs_service" "backend_service" {
   network_configuration {
     subnets = [aws_subnet.private_subnet.id]
     security_groups = [aws_security_group.ecs_security_group.id]
+  }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.ecs_target_group.arn
+    container_name   = "backend-container"  # Replace with your container name
+    container_port   = 80  # Replace with your container port
   }
 }
 
